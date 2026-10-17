@@ -1,0 +1,30 @@
+{
+  "scope": "Node sin Vitest, sin DOM y sin medición de cobertura React",
+  "generatedAt": "2026-10-14T14:53:00.341Z",
+  "results": [
+    {
+      "check": "check:catalog",
+      "ok": true,
+      "code": 0,
+      "detail": "OK: 51 fichas, 10 categorías, 340 referencias totales declaradas, códigos únicos, búsqueda y CRUD básico."
+    },
+    {
+      "check": "check:cart",
+      "ok": true,
+      "code": 0,
+      "detail": "OK: catálogo real de 51 productos, agregar, acumular, límite de stock, editar, quitar, subtotales, reconciliación y persistencia separada por usuario."
+    },
+    {
+      "check": "check:orders",
+      "ok": true,
+      "code": 0,
+      "detail": "OK: 51 productos, validaciones, confirmación, stock, carrito, persistencia, estados y seguimiento."
+    },
+    {
+      "check": "check:users",
+      "ok": true,
+      "code": 0,
+      "detail": "OK — perfiles, validaciones, correo único, registro, CRUD, roles, bloqueo de último admin, persistencia y compatibilidad de pedidos."
+    }
+  ]
+}

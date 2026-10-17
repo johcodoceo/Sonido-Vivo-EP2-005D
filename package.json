@@ -1,7 +1,7 @@
 {
-  "name": "sonido-vivo-ep2-etapa-5-usuarios",
+  "name": "sonido-vivo-ep2-etapa-6-testing",
   "private": true,
-  "version": "0.5.0",
+  "version": "0.6.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -13,7 +13,10 @@
     "check:catalog": "node scripts/checkCatalog.mjs",
     "check:cart": "node scripts/checkCart.mjs",
     "check:orders": "node scripts/checkOrders.mjs",
-    "check:users": "node scripts/checkUsers.mjs"
+    "check:users": "node scripts/checkUsers.mjs",
+    "qa:node": "node scripts/runNodeChecks.mjs",
+    "qa:static": "node scripts/verifyProject.mjs",
+    "report:coverage": "node scripts/writeCoverageReport.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

@@ -1,0 +1,8 @@
+{
+  "generatedAt": "2026-10-14T14:53:00.077Z",
+  "srcCount": 78,
+  "testFiles": 23,
+  "testDeclarations": 111,
+  "check": "JS sin JSX + imports relativos + pruebas no deshabilitadas",
+  "issues": []
+}
