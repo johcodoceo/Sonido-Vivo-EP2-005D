@@ -1,65 +1,48 @@
-# Sonido Vivo · Forma B · Desarrollo Full Stack II · EP2 · Etapa 6
+# Sonido Vivo · Forma B · Evaluación Parcial 2 · Etapa 7
 
-**Proyecto acumulativo de las etapas 1 a 5**, ahora con la Etapa 6: revisión, ampliación de pruebas unitarias y herramientas para generar evidencia de cobertura **real**.
+**Base de código:** Etapa 6, SIN modificaciones a la lógica React/JSX. En esta etapa se incorporó documentación de entrega.
 
-> **Demostración de frontend.** El selector de perfiles no comprueba contraseñas y los datos locales no están protegidos como en un backend. No ingreses información personal real. Las compras, pagos y envíos son simulados.
+**Importante:** demostración académica frontend. Los perfiles no utilizan autenticación real y los datos se guardan en `localStorage` del navegador. No introducir datos privados reales ni considerarlo un sistema apto para producción.
 
-## Instalación desde una carpeta nueva
+## Funcionalidad disponible
 
-Requiere Node.js 20.19+ o 22.12+ y npm con conexión a internet:
+- 51 fichas detalladas del Excel oficial de Forma B, en 10 categorías (el caso refiere 340 referencias totales, pero faltan 289 fichas detalladas).
+- Catálogo, búsqueda, filtros, detalle y CRUD de productos; inventario editable por Vendedor/Administrador.
+- Carrito por perfil con cantidades, validación de stock, subtotal/total en CLP y persistencia local.
+- Checkout simulado con despacho/retiro, descuento de stock local, historial de pedidos y avance de estados.
+- Administración simulada de usuarios (Cliente/Vendedor/Administrador), registro y rutas por rol en frontend.
+
+## Instalar y ejecutar
 
 ```bash
 npm install
 npm run dev
 ```
 
-Una vez instalada la dependencia, abre el enlace indicado por Vite (habitualmente `http://localhost:5173`). No se incluye `node_modules`.
-
-## Pruebas y calidad EP2
+## Validación y pruebas
 
 ```bash
-npm run qa:static           # revisión de imports y JS sin dependencias externas
-npm run qa:node             # 4 verificaciones de lógica con Node, sin dependencias
-npm test                    # suite Vitest + React Testing Library
-npm run test:watch          # modo interactivo
-npm run test:coverage       # cobertura V8: terminal, HTML y JSON
-npm run report:coverage     # SOLO después de medir cobertura real
-npm run build               # compilación producción Vite
+npm run qa:static
+npm run qa:node
+npm test
+npm run test:coverage
+npm run report:coverage
+npm run build
 ```
 
-**Resultado disponible al construir esta versión:** `qa:static` sin hallazgos; `qa:node` 4/4 aprobados. **No fue posible ejecutar Vitest ni Vite** porque `npm install` devolvió `EAI_AGAIN registry.npmjs.org`; por eso no hay porcentajes de cobertura verificados. `report:coverage` falla de forma intencional si no existe `coverage/coverage-summary.json`; no fabrica porcentajes. El reporte HTML se genera en `coverage/index.html` y esa carpeta no se entrega dentro del ZIP de origen.
+**Resultados informados mediante capturas del equipo:** Vitest 2.1.9, 23/23 archivos y 115/115 tests aprobados. V8: Statements 75,68 %, Branches 77,65 %, Functions 68,15 %, Lines 75,68 %. Si se modifica el código, repetir las mediciones.
 
-## Nuevos elementos de Etapa 6
+## Documentos en `docs/`
 
-- `src/test/setup.js`: limpieza explícita de React Testing Library entre pruebas y reinicio de mocks.
-- `src/test/LoginPage.test.jsx`: accesos por rol, desactivación y error de selección.
-- `src/test/RegisterPage.test.jsx`: validación, registro Cliente y mensaje de almacenamiento.
-- `src/test/OrdersPage.test.jsx`: historial vacío, confirmación y detalle para Cliente.
-- `src/test/OrderManagementPage.test.jsx`: filtros, búsquedas y cambios de estado con spy.
-- `vite.config.js`: reporter de cobertura JSON resumen además de text/HTML.
-- `scripts/verifyProject.mjs`: revisión estática sin paquetes externos.
-- `scripts/runNodeChecks.mjs`: ejecuta comprobaciones de datos, carrito, pedidos y usuarios.
-- `scripts/writeCoverageReport.mjs`: crea reporte Markdown a partir de métricas genuinas de cobertura.
-- `docs/EP2_MATRIZ_RUBRICA_Y_QA.md`: checklist con evidencias y pendientes reales.
-- `docs/EP2_Informe_Cobertura_Preliminar.docx`: documento según la estructura solicitada por el docente, para terminar cuando Vitest se ejecute con éxito.
+- `Sonido_Vivo_EP2_ERS_Version_2.docx`: ERS actualizado a V2 (faltan datos de sección, grupo, URL GitHub y revisión del equipo frente a un eventual V1).
+- `Sonido_Vivo_EP2_Cobertura_Testing_Resultados_Reales.docx`: evidencia de 115 tests y cobertura con capturas; completar identificación.
+- `Sonido_Vivo_EP2_Guia_GitHub_Video_Defensa.docx`: pasos de entrega individual, guion narrado y preparación de defensa.
+- `DSY1104_Forma_B_Catalogo_Sonido_Vivo.xlsx`: catálogo original de referencia académica.
 
-La suite incluye pruebas de **lógica/validaciones, componentes, interacciones y mocks/spies**. La revisión estática detectó 111 declaraciones de prueba en 23 archivos de test; no significa que las 111 se hayan ejecutado o aprobado.
+## Estado de entrega y limitaciones
 
-## Datos y funciones mantenidas de etapas anteriores
-
-- Catálogo importado desde Excel Forma B: **51 fichas oficiales** en 10 categorías. La fuente menciona 340 referencias totales, sin detallar las otras 289.
-- Catálogo, búsqueda y filtros por marca/modelo/código, vista de detalle y CRUD simulado de productos.
-- Carrito por usuario con control de stock, subtotal/total CLP y `localStorage`.
-- Pedido ficticio con retiro/despacho, descuento de stock local, historial y estados de seguimiento.
-- Gestión de usuarios Cliente/Vendedor/Administrador, registro ficticio, roles y desactivación; rutas visuales diferenciadas.
-- Bootstrap 5, React Router y arquitectura por `pages`, `components`, `services` y `context`.
-
-## Pendientes para la entrega real
-
-1. **Instalar y ejecutar**: `npm test`, `npm run test:coverage`, `npm run report:coverage`, `npm run build`; corregir cualquier falla real.
-2. Completar la identificación del grupo y porcentajes reales del documento de cobertura; añadir capturas de salida y análisis.
-3. Verificar visualmente móviles (360 px), tabletas (768 px) y escritorio (1280 px).
-4. Finalizar **ERS versión 2**, README/grupo, GitHub público con aportes y video narrado de 5–8 minutos.
-5. Descargar el **ZIP definitivo desde GitHub** y subir en AVA individualmente antes del **19/10/2026 13:00**.
-
-Los requisitos semestrales futuros de Spring Boot, API REST, control de acceso en servidor, MySQL, mapa interactivo verificado, Docker y AWS **no están implementados** por este frontend académico.
+- Pendiente: verificar responsive de todas las vistas a 360/768/1280 px y clon limpio en el equipo del estudiante.
+- Pendiente: enlaces reales a GitHub y Google Drive, commits personales verificables, grabación y subida AVA.
+- No incluidos en EP2: Spring Boot, APIs reales, autenticación/token, DB relacional, pasarela de pagos, mapas reales, AWS y Docker. La pantalla de ubicaciones es un marcador de posición.
+- El **ZIP oficial que exige AVA debe descargarse del repositorio GitHub (Code → Download ZIP)** después de publicar esta versión. Este ZIP local es sólo el paquete de trabajo previo a la publicación.
+- Fecha límite de entrega individual: **lunes 19 de octubre de 2026, antes de las 13:00**.
