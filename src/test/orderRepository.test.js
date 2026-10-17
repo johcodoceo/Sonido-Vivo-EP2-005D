@@ -120,3 +120,15 @@ describe('pedidos, inventario y seguimiento', () => {
     expect(readOrders(store)).toHaveLength(1);
   });
 });
+
+describe('compatibilidad de pedidos con nuevos perfiles de etapa 5', () => {
+  it('permite al perfil Cliente registrado comprar al recibir rol validado desde AuthContext', () => {
+    const result = createOrder([], cart, initialProducts, 'SVU-1790000000-4', pickup, now, 'cliente');
+    expect(result.error).toBeNull();
+    expect(result.order.userId).toBe('SVU-1790000000-4');
+  });
+  it('no permite a un perfil de Vendedor registrado emitir pedidos y exige rol para IDs nuevos', () => {
+    expect(createOrder([], cart, initialProducts, 'SVU-1790000000-4', pickup, now, 'vendedor').error).toMatch(/no puede/i);
+    expect(createOrder([], cart, initialProducts, 'SVU-1790000000-4', pickup, now).error).toMatch(/no puede/i);
+  });
+});

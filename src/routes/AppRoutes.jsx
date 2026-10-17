@@ -16,6 +16,7 @@ import OrderManagementPage from '../pages/OrderManagementPage.jsx';
 import LocationsPage from '../pages/LocationsPage.jsx';
 import SellerPage from '../pages/SellerPage.jsx';
 import AdminPage from '../pages/AdminPage.jsx';
+import UserManagementPage from '../pages/UserManagementPage.jsx';
 import ForbiddenPage from '../pages/ForbiddenPage.jsx';
 import NotFoundPage from '../pages/NotFoundPage.jsx';
 
@@ -52,6 +53,7 @@ export default function AppRoutes() {
           <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
             <Route path="/administracion" element={<AdminPage />} />
             <Route path="/administracion/productos" element={<ProductManagementPage />} />
+            <Route path="/administracion/usuarios" element={<UserManagementPage />} />
             <Route path="/administracion/pedidos" element={<OrderManagementPage />} />
           </Route>
         </Route>

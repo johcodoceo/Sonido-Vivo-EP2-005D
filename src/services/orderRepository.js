@@ -32,10 +32,10 @@ export function validateCheckout(form) {
   return { errors, data: { name, email, fulfillment, city: fulfillment === 'despacho' ? city : '', address: fulfillment === 'despacho' ? address : '', notes } };
 }
 
-export function createOrder(orders, items, products, userId, form, now = new Date().toISOString()) {
+export function createOrder(orders, items, products, userId, form, now = new Date().toISOString(), buyerRole = userId?.startsWith('demo-') ? userId.slice(5) : null) {
   const { errors, data } = validateCheckout(form);
   if (Object.keys(errors).length) return { error: 'Revisa los datos del formulario.', errors };
-  if (!['demo-cliente', 'demo-administrador'].includes(userId)) return { error: 'Esta cuenta no puede hacer pedidos.', errors: {} };
+  if (typeof userId !== 'string' || userId.length < 3 || !['cliente', 'administrador'].includes(buyerRole)) return { error: 'Esta cuenta no puede hacer pedidos.', errors: {} };
   if (!Array.isArray(items) || items.length === 0) return { error: 'Tu carrito está vacío.', errors: {} };
   if (!Array.isArray(products) || !Array.isArray(orders)) return { error: 'No se pudo consultar el catálogo.', errors: {} };
   const byId = new Map(products.map((p) => [p.id, p]));
@@ -108,7 +108,7 @@ export function transitionOrder(orders, id, status, at = new Date().toISOString(
 /** Escritura local de 3 claves con reversión best-effort; no reemplaza una transacción de backend.
  * El carrito se relee antes de confirmar para no aceptar una versión obsoleta del mismo navegador.
  */
-export function commitDemoOrder(userId, cartItems, form, storage = globalThis.localStorage, now = new Date().toISOString()) {
+export function commitDemoOrder(userId, cartItems, form, storage = globalThis.localStorage, now = new Date().toISOString(), buyerRole) {
   const keys = [PRODUCTS_STORAGE_KEY, ORDERS_STORAGE_KEY, cartStorageKey(userId)];
   try {
     const products = readProducts(storage);
@@ -116,7 +116,7 @@ export function commitDemoOrder(userId, cartItems, form, storage = globalThis.lo
     const storedCartRaw = storage.getItem(keys[2]);
     const storedCart = normalizeCart(storedCartRaw ? JSON.parse(storedCartRaw) : [], products);
     if (!sameCart(storedCart, cartItems)) return { error: 'El carrito cambió. Actualiza la página y revisa tus productos.', errors: {} };
-    const result = createOrder(orders, storedCart, products, userId, form, now);
+    const result = createOrder(orders, storedCart, products, userId, form, now, buyerRole);
     if (result.error) return result;
     const originals = keys.map((key) => storage.getItem(key));
     try {

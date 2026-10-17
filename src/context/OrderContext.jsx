@@ -15,7 +15,7 @@ export function OrderProvider({ children }) {
 
   const placeOrder = useCallback((form) => {
     if (![ROLES.CLIENTE, ROLES.ADMIN].includes(user?.role)) return { error: 'No tienes permiso para comprar.', errors: {} };
-    const result = commitDemoOrder(user.id, lines.map(({ productId, quantity }) => ({ productId, quantity })), form);
+    const result = commitDemoOrder(user.id, lines.map(({ productId, quantity }) => ({ productId, quantity })), form, undefined, undefined, user.role);
     if (!result.error) {
       syncStock(result.updatedProducts);
       replaceAfterOrder();

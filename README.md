@@ -1,99 +1,91 @@
-# Sonido Vivo · Forma B · Desarrollo Full Stack II · EP2 · Etapa 4
+# Sonido Vivo · Forma B · Desarrollo Full Stack II · EP2 · Etapa 5
 
-**Aplicación React + Vite + Bootstrap 5 con navegación React Router, catálogo real del Excel Forma B, administración de productos, inventario, carrito y pedidos de demostración.**
+**React + Vite + Bootstrap 5 + React Router.** Se conserva la tienda académica de las etapas anteriores y se añade **registro de Cliente, CRUD de perfiles, roles, activación/desactivación, formularios y validaciones**.
 
-> IMPORTANTE: Esta aplicación es únicamente una **simulación académica del frontend**. No existe autenticación segura, procesamiento de pagos, envío de correo, confirmación con tienda física, backend ni base de datos. No ingreses datos personales reales en el formulario de confirmación: utiliza datos inventados.
+> **Solo demostración de frontend.** El selector de perfiles NO pide ni comprueba contraseñas y cualquier persona puede seleccionar cualquier perfil activo. Los datos, permisos, productos y pedidos se simulan en el navegador. **No introduzcas datos personales reales ni credenciales.** No hay sistema seguro de acceso, servidor, pagos, envíos ni base de datos.
 
-## Datos oficiales preservados
+## Origen de los datos
 
-- `docs/DSY1104_Forma_B_Catalogo_Sonido_Vivo.xlsx`: fuente académica original entregada por el estudiante.
-- **51 fichas con datos concretos** y **10 categorías**; el caso describe **340 referencias totales**, pero el Excel individualiza solo 51. No se inventaron 289 productos.
-- Identificadores, nombres, marcas, modelos, precios CLP y stocks iniciales correspondientes al Excel. Las modificaciones de catálogo, carrito y pedidos son locales al navegador.
+`docs/DSY1104_Forma_B_Catalogo_Sonido_Vivo.xlsx` contiene **51 fichas de productos**, pertenecientes a **10 categorías**, con códigos, nombres, modelos, marcas, precios y stocks iniciales. El caso señala 340 referencias en total, pero no se han inventado las otras 289.
 
-## Instalación (VS Code)
+## Instalación y ejecución
 
-Recomendado: Node.js 20.19+ o 22.12+; npm habilitado.
+Con Node.js 20.19+ o 22.12+ y npm:
 
 ```bash
 npm install
 npm run dev
 ```
 
-Abre el URL que muestra Vite (generalmente http://localhost:5173).
+Entra en el enlace de Vite (normalmente `http://localhost:5173`). Abre **la carpeta de esta etapa** en VS Code, no una mezcla de etapas anteriores. No se incluye `node_modules`.
 
-## Recorrido recomendado para la demostración
+## Qué implementar y cómo probar la Etapa 5
 
-1. Accede como **Cliente** desde `/ingresar`.
-2. Ve a **Catálogo**, elige una guitarra con existencias y agrégala al carrito.
-3. En **Carrito** cambia la cantidad; verifica el subtotal, total y límite de stock.
-4. Pulsa **Continuar a confirmar pedido**. Rellena **nombre y correo ficticios** y elige **Retiro en tienda** o **Despacho a domicilio**. Para despacho se validan ciudad y dirección ficticias.
-5. Comprueba que los campos obligatorios muestran errores cuando faltan o son inválidos. Marca la casilla de reconocimiento de simulación y confirma.
-6. Observa el código creado, el mensaje de confirmación y el detalle en **Mis pedidos**. El carrito se vacía y el stock local disminuye.
-7. Cierra sesión e ingresa como **Vendedor**. Ve a **Gestión de pedidos**; encuentra el pedido, filtra y avanza de **En preparación → Despachado → Entregado** si elegiste despacho, o **En preparación → Listo para retiro → Entregado** si elegiste retiro.
-8. Vuelve a entrar como Cliente y consulta el historial para ver el cambio de estado.
-9. Ingresa como **Administrador**. Abre **Administración → Pedidos**, y también **Gestión de productos**. Podrás consultar pedidos y usar el CRUD existente.
-10. Recarga la página para comprobar persistencia de pedido, carrito y stock en `localStorage`.
+1. **Acceso:** `/ingresar` permite entrar con los tres perfiles ficticios iniciales (Cliente, Vendedor, Administrador). No hay contraseña ni autenticación real.
+2. **Registro público:** `/registro`. Completa nombre, correo único y teléfono opcional **ficticios**. El registro público crea obligatoriamente un perfil **Cliente**. Luego selecciona ese perfil en el acceso de demostración.
+3. **Administración:** ingresa como Administrador → **Administración → Usuarios** (`/administracion/usuarios`). Prueba **crear, editar y desactivar/reactivar** una cuenta de prueba, y **asignar Cliente, Vendedor o Administrador**.
+4. **Filtros:** en el mismo panel busca por nombre, correo o ID y filtra por rol y estado (Activo/Inactivo). La tabla se adapta a móviles mediante desplazamiento horizontal.
+5. **Seguridad de interfaz:** el Vendedor no puede entrar al panel de usuarios; Cliente solo accede a sus rutas. Se protege la sesión de demostración desactivada, no puede desactivarse la propia cuenta activa y se conserva al menos un Administrador activo.
+6. **Validaciones:** comprueba campos vacíos, correo mal formado, correo duplicado, teléfono inválido y cambio del rol propio. Se muestran mensajes cerca del campo y un resumen de los errores.
+7. **Persistencia:** crea un perfil y recarga la página. Los cambios de usuarios quedan almacenados en `localStorage`. El usuario seleccionado se recuerda solo en `sessionStorage` hasta salir o cerrar la pestaña.
+8. **Regresión:** como Cliente agrega un producto del Excel al carrito, confirma un pedido **ficticio**, ingresa como Vendedor y actualiza el estado; luego verifica que el Cliente ve su historial. También puedes usar como Cliente una cuenta nueva creada en el registro.
 
-## Rutas principales
+**Controles para conservar el funcionamiento:** el último Administrador activo no se puede desactivar ni perder su rol; el Administrador actual no puede desactivar su propia cuenta ni cambiarse el rol. Si otro administrador modifica el rol de una cuenta, su próxima navegación refleja el rol actualizado. Un perfil desactivado no puede seleccionarse para ingresar.
 
-| URL | Rol | Función |
-| --- | --- | --- |
-| `/ingresar` | Público | Selección de perfil de demostración |
-| `/catalogo` y `/catalogo/:productId` | Cualquier perfil autenticado (demo) | Productos, búsqueda y detalle |
-| `/carrito` | Cliente/Administrador | Agregar, modificar, quitar y revisar carrito |
-| `/confirmar-pedido` | Cliente/Administrador | Validar formulario y registrar pedido ficticio |
-| `/mis-pedidos` | Cliente/Administrador | Historial de pedidos del perfil actual |
-| `/vendedor` | Vendedor/Administrador | Acceso al inventario y pedidos |
-| `/vendedor/inventario` | Vendedor/Administrador | Ajustar stock |
-| `/vendedor/pedidos` | Vendedor/Administrador | Consultar y avanzar los estados |
-| `/administracion` | Administrador | Panel general |
-| `/administracion/productos` | Administrador | CRUD de productos |
-| `/administracion/pedidos` | Administrador | Consultar y avanzar los estados |
+## Rutas por rol
 
-## Archivos de la Etapa 4
+| Ruta | Acceso de demostración |
+| --- | --- |
+| `/ingresar`, `/registro` | Público |
+| `/inicio`, `/catalogo`, `/catalogo/:productId`, `/ubicaciones` | Cualquier perfil activo |
+| `/carrito`, `/confirmar-pedido`, `/mis-pedidos` | Cliente y Administrador |
+| `/vendedor`, `/vendedor/inventario`, `/vendedor/pedidos` | Vendedor y Administrador |
+| `/administracion`, `/administracion/productos`, `/administracion/pedidos` | Administrador |
+| `/administracion/usuarios` | Administrador |
 
-- `src/services/orderRepository.js`: validaciones puras, captura de precios y productos al confirmar, controles de stock, persistencia local con intento de reversión en caso de error, transiciones de estado.
-- `src/context/OrderContext.jsx`: comparte pedidos, historial por perfil y acciones para confirmar y avanzar estados.
-- `src/pages/CheckoutPage.jsx`: formulario con retroalimentación visible, confirmación explícita y resumen.
-- `src/pages/OrdersPage.jsx`: historial del Cliente con detalles y seguimiento.
-- `src/pages/OrderManagementPage.jsx`: listado, filtros, búsqueda y actualización de estados de pedidos por Vendedor/Administrador.
-- `src/components/OrderCard.jsx`: componente reutilizable para cliente y personal interno.
-- `src/test/orderRepository.test.js`, `src/test/CheckoutPage.test.jsx`, `src/test/OrderCard.test.jsx`: pruebas de lógica, estados, formularios y UI.
-- `scripts/checkOrders.mjs`: verificación sin dependencias adicionales para poder ejecutar algunas pruebas incluso sin instalar npm.
+## Organización del código de esta etapa
 
-## Datos y persistencia
+- `src/services/userRepository.js`: validaciones y funciones puras de **crear, actualizar, cambiar estado, validar, leer y guardar** usuarios.
+- `src/context/UserContext.jsx`: compartición de la lista y persistencia entre pantallas.
+- `src/context/AuthContext.jsx`: sesión temporal de demostración asociada al perfil activo; admite sesiones de las etapas anteriores.
+- `src/components/UserForm.jsx`: formulario reutilizable en registro y administración.
+- `src/pages/RegisterPage.jsx`: registro público restringido al rol Cliente.
+- `src/pages/LoginPage.jsx`: selector de cuentas ficticias iniciales o nuevas.
+- `src/pages/UserManagementPage.jsx`: tabla, filtros, alta, edición, activación y desactivación.
+- `src/routes/AppRoutes.jsx`: protección de `/administracion/usuarios` para Administrador.
+- `src/services/orderRepository.js`: permite registrar pedidos de nuevos perfiles Cliente (se recibe el rol validado por `OrderContext`).
+- `src/test/userRepository.test.js`, `src/test/UserForm.test.jsx`, `src/test/UserManagementPage.test.jsx`: pruebas nuevas de lógica e interfaz.
 
-El proyecto utiliza `localStorage` con claves distintas:
+Se mantienen los componentes y servicios de catálogo, carrito y pedidos de las etapas 1–4.
 
-- `sonido-vivo-catalogo-forma-b-v3`: catálogo y stock actuales de esta simulación. **Se conserva el almacenamiento de la Etapa 3**.
-- `sonido-vivo-carrito-forma-b-v1:demo-cliente` (y `:demo-administrador`): selección por rol/usuario de prueba.
-- `sonido-vivo-pedidos-forma-b-v1`: conjunto de pedidos locales; cada registro tiene `userId`, copia de datos del producto, monto al momento de compra, modalidad, contacto ficticio, fecha, estado e historial.
+## Datos locales y reinicio de la demostración
 
-Un pedido descontará el stock **una sola vez durante su confirmación**; el cambio de estado posterior no modifica el stock. El precio histórico de un pedido no cambia cuando se edita el producto. Un pedido solo pasa por las etapas admitidas; Cliente no dispone de controles de avance. Las simulaciones de dos perfiles comparten el mismo navegador, pero el historial del Cliente se filtra por usuario de demo.
+Almacenamiento utilizado:
 
-**Limitaciones:** no hay reservas multiusuario, concurrencia entre pestañas, aislamiento seguro de datos personales, transacciones en servidor ni sincronización entre computadores. La escritura local de los tres elementos (pedidos, productos y carrito) implementa una reversión de mejor esfuerzo, pero **no ofrece garantía de transacción ACID**. El caso completo requiere en etapas posteriores API REST Spring Boot, persistencia relacional y seguridad real.
+- `sonido-vivo-catalogo-forma-b-v3`: catálogo y stock.
+- `sonido-vivo-carrito-forma-b-v1:<id>`: un carrito por perfil.
+- `sonido-vivo-pedidos-forma-b-v1`: pedidos, filtrados por `userId` al mostrarlos al Cliente.
+- `sonido-vivo-usuarios-forma-b-v1`: perfiles ficticios y roles. Se incluyen tres perfiles iniciales; no hay contraseñas.
+- `sessionStorage → sonido-vivo-demo-session-v1`: selector de perfil vigente.
 
-El pedido **no tiene comprobante real de pago ni estado de pago verificado**, el monto representa solo productos y **no incluye una tarifa de despacho**, pues el caso no entrega una tarifa. El botón guarda solamente una solicitud ficticia.
+Para **reiniciar solo usuarios**, abre las herramientas del navegador → **Aplicación / Storage → Local Storage**, elimina `sonido-vivo-usuarios-forma-b-v1` y luego sale de la sesión o elimina `sessionStorage → sonido-vivo-demo-session-v1` antes de recargar. **Esto descarta cambios en perfiles de prueba**. No borres claves de productos ni pedidos si deseas conservar esas pruebas.
 
-### Volver a los datos iniciales para demostrar de nuevo
-
-Desde las herramientas del navegador → Aplicación → Almacenamiento local, elimina únicamente las claves anteriores y recarga. Esto reinicia datos, carritos y pedidos de esta app en ese navegador y origen. Realiza esta operación solo si quieres descartar los cambios de demostración.
-
-## Pruebas y compilación
+## Comprobaciones y testing
 
 ```bash
 npm run check:catalog
 npm run check:cart
 npm run check:orders
+npm run check:users
 npm test
 npm run test:coverage
 npm run build
 ```
 
-Los tres scripts `check:*` son ejecutables solo con Node. Vitest y Vite necesitan `npm install`. Las pruebas de pedidos abarcan validaciones de retiro y despacho, stock insuficiente, capturas históricas de precios, carrito obsoleto, almacenamiento con errores, estados permitidos y restricciones de UI.
+`check:*` requiere únicamente Node. Los archivos `src/test/*` emplean **Vitest y React Testing Library** y cubren lógica, componentes, formularios e interacciones. La guía de EP2 solicita al menos **10 pruebas significativas** y un documento de cobertura; se incluyen más pruebas escritas, pero la ejecución real de Vitest y los porcentajes de cobertura deben verificarse y documentarse desde tu equipo.
 
-En el entorno donde se generó esta entrega **no fue posible descargar dependencias de npm (`EAI_AGAIN`, registro inaccesible)**. Por ello, aunque se verificaron los scripts Node, la sintaxis de los módulos y las rutas de importación, **no se declara que la suite Vitest ni `npm run build` hayan terminado correctamente**. Deben ejecutarse en tu computador.
+Al generar esta versión, el entorno no pudo instalar dependencias por `EAI_AGAIN` (registro npm inaccesible). **No afirmamos haber ejecutado correctamente Vitest ni `npm run build`**. Sí se ejecutaron las comprobaciones con Node, y se analizaron los archivos JS/JSX y sus importaciones.
 
-## Qué falta para el cierre de EP2
+## Pendientes para cerrar EP2 y proyecto semestral
 
-La presente **Etapa 4** no equivale a la entrega completa: sigue pendiente revisar requisitos restantes de formularios y administración de usuarios, ejecutar y documentar pruebas (al menos 10 significativas según la guía), preparar cobertura, ERS V2, README final, commits de los integrantes, video y entrega individual de artefactos. En la evaluación se debe explicar que roles, permisos, pedidos, stock y cuenta de usuario son simulaciones locales.
+Para EP2: verificar compilación y pruebas reales, solucionar cualquier error, conseguir capturas de cobertura, finalizar ERS V2, documento de testing, GitHub con commits, video y entrega individual. Para fases futuras del proyecto semestral: autenticación con contraseñas seguras, backend de microservicios Spring Boot, API REST, control de permisos en servidor, base de datos relacional, mapa de ubicación verificada, Docker y AWS. **La protección visual de React no sustituye la autorización en backend.**

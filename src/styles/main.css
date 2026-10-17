@@ -123,3 +123,8 @@ a { transition: color .2s ease, background-color .2s ease, border-color .2s ease
 .delivery-option { display: inline-flex; gap: 9px; align-items: center; background: #f5f8fd; border: 1px solid #dee6f0; border-radius: 12px; padding: 13px 15px; cursor: pointer; }
 .delivery-option:has(input:checked) { border-color: #d49f43; background: #fff8e8; }
 @media(max-width:575.98px) { .delivery-option { width: 100%; } .order-card .table { min-width: 500px; } }
+
+/* Etapa 5: perfiles de prueba y tabla de usuarios */
+.user-email-cell { max-width: 240px; overflow-wrap: anywhere; }
+.profile-button:disabled { opacity: .45; cursor: not-allowed; transform: none; }
+@media (max-width: 767.98px) { .user-email-cell { min-width: 190px; } }

@@ -18,7 +18,7 @@ function getNavigation(role) {
     links.push({ to: '/mis-pedidos', label: 'Mis pedidos' });
   }
   if ([ROLES.VENDEDOR, ROLES.ADMIN].includes(role)) { links.push({ to: '/vendedor', label: 'Vendedor' }); links.push({ to: '/vendedor/pedidos', label: 'Gestionar pedidos' }); }
-  if (role === ROLES.ADMIN) links.push({ to: '/administracion', label: 'Administración' });
+  if (role === ROLES.ADMIN) { links.push({ to: '/administracion', label: 'Administración' }); links.push({ to: '/administracion/usuarios', label: 'Usuarios' }); }
   return links;
 }
 
@@ -53,7 +53,7 @@ export default function SiteHeader() {
             ))}
           </ul>
           <div className="d-flex flex-column flex-lg-row align-items-lg-center gap-2 gap-lg-3">
-            <span className="role-pill" title={user.name}>{ROLE_LABELS[user.role]} · demo</span>
+            <span className="role-pill" title={user.name}>{user.name} · {ROLE_LABELS[user.role]} · demo</span>
             <button className="btn btn-outline-light btn-sm px-3" type="button" onClick={handleLogout}>Salir</button>
           </div>
         </div>
