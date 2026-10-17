@@ -36,7 +36,7 @@ export default function LoginPage() {
           </div>
           <div className="col-lg-6">
             <section className="login-panel" aria-labelledby="acceso-title">
-              <div className="eyebrow mb-2">ETAPA 1 · ACCESO DE PRUEBA</div>
+              <div className="eyebrow mb-2">ETAPA 2 · ACCESO DE PRUEBA</div>
               <h2 id="acceso-title" className="h3 fw-bold mb-2">Explora el proyecto</h2>
               <p className="text-secondary mb-4">Selecciona un rol para revisar la navegación inicial. No se verifican contraseñas ni existe autenticación real en esta etapa.</p>
               <div className="d-grid gap-3">

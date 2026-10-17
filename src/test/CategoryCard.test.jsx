@@ -5,9 +5,9 @@ import CategoryCard from '../components/CategoryCard.jsx';
 
 describe('CategoryCard', () => {
   it('muestra una categoría recibida por props y prepara la navegación', () => {
-    const category = { name: 'Guitarras', slug: 'guitarras', description: 'Instrumentos', icon: '🎸' };
+    const category = { name: 'Guitarras Acústicas', slug: 'guitarras-acusticas', description: 'Instrumentos', icon: '🎸', referencesApprox: 45 };
     render(<MemoryRouter><CategoryCard category={category} /></MemoryRouter>);
-    expect(screen.getByRole('link', { name: /guitarras/i })).toHaveAttribute('href', '/catalogo?categoria=guitarras');
+    expect(screen.getByRole('link', { name: /guitarras/i })).toHaveAttribute('href', '/catalogo?categoria=guitarras-acusticas');
     expect(screen.getByText('Instrumentos')).toBeInTheDocument();
   });
 });

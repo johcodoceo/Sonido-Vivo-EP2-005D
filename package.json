@@ -1,7 +1,7 @@
 {
-  "name": "sonido-vivo-ep2-etapa-1",
+  "name": "sonido-vivo-ep2-etapa-2-catalogo-forma-b",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.1",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "check:catalog": "node scripts/checkCatalog.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

@@ -1,6 +1,11 @@
+import { Link } from 'react-router-dom';
 import PageIntro from '../components/PageIntro.jsx';
 import PlaceholderPanel from '../components/PlaceholderPanel.jsx';
 
 export default function AdminPage() {
-  return <section className="container section-space"><PageIntro eyebrow="ROL ADMINISTRADOR" title="Panel de administración" description="El menú y la ruta están reservados para el rol Administrador en esta demostración." /><PlaceholderPanel icon="📊" title="Panel administrativo en construcción" text="La administración real de usuarios y los reportes formarán parte de las etapas posteriores." points={['Crear, editar y desactivar usuarios', 'Asignar roles', 'Consultar reportes y ventas']} /></section>;
+  return <section className="container section-space">
+    <PageIntro eyebrow="ROL ADMINISTRADOR" title="Panel de administración" description="Funciones de gestión disponibles para el rol Administrador en modo de demostración." />
+    <div className="surface-panel p-4 mb-4 d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3"><div><h2 className="h4">Administrar productos</h2><p className="text-secondary mb-0">Crear, consultar, editar y eliminar artículos con persistencia local.</p></div><Link className="btn btn-warning fw-semibold" to="/administracion/productos">Abrir gestión de productos →</Link></div>
+    <PlaceholderPanel icon="📊" title="Próximos módulos de administración" text="Los roles y la navegación ya están preparados; la gestión real de usuarios y reportes corresponde a etapas posteriores." points={['Crear, editar y desactivar usuarios', 'Asignar roles', 'Consultar reportes y ventas']} />
+  </section>;
 }

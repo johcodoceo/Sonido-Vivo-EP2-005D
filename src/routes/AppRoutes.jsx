@@ -6,6 +6,9 @@ import LoginPage from '../pages/LoginPage.jsx';
 import RegisterPage from '../pages/RegisterPage.jsx';
 import HomePage from '../pages/HomePage.jsx';
 import CatalogPage from '../pages/CatalogPage.jsx';
+import ProductDetailPage from '../pages/ProductDetailPage.jsx';
+import ProductManagementPage from '../pages/ProductManagementPage.jsx';
+import InventoryPage from '../pages/InventoryPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
 import OrdersPage from '../pages/OrdersPage.jsx';
 import LocationsPage from '../pages/LocationsPage.jsx';
@@ -28,6 +31,7 @@ export default function AppRoutes() {
           <Route path="/" element={<Navigate to="/inicio" replace />} />
           <Route path="/inicio" element={<HomePage />} />
           <Route path="/catalogo" element={<CatalogPage />} />
+          <Route path="/catalogo/:productId" element={<ProductDetailPage />} />
           <Route path="/ubicaciones" element={<LocationsPage />} />
           <Route path="/sin-acceso" element={<ForbiddenPage />} />
 
@@ -38,10 +42,12 @@ export default function AppRoutes() {
 
           <Route element={<ProtectedRoute allowedRoles={staffRoles} />}>
             <Route path="/vendedor" element={<SellerPage />} />
+            <Route path="/vendedor/inventario" element={<InventoryPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
             <Route path="/administracion" element={<AdminPage />} />
+            <Route path="/administracion/productos" element={<ProductManagementPage />} />
           </Route>
         </Route>
       </Route>
