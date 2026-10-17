@@ -81,8 +81,8 @@ export default function CartPage() {
           <div className="d-flex justify-content-between mb-3"><span>Subtotal</span><strong>{formatCLP(subtotal)}</strong></div>
           <div className="border-top pt-3 mt-3 d-flex justify-content-between align-items-center"><span className="fw-bold">Total estimado</span><strong className="h3 fw-bold mb-0">{formatCLP(subtotal)}</strong></div>
           <p className="small text-secondary mt-3">Total de productos, sin gastos de envío. No se cobra ni se reserva stock al agregar artículos.</p>
-          <button disabled type="button" className="btn btn-warning fw-bold w-100 mt-2">Confirmar pedido · próxima etapa</button>
-          <p className="small text-secondary mt-2 mb-0">La confirmación de pedidos, el despacho y el pago se implementarán después.</p>
+          <Link to="/confirmar-pedido" className="btn btn-warning fw-bold w-100 mt-2">Continuar a confirmar pedido →</Link>
+          <p className="small text-secondary mt-2 mb-0">Se registrará un pedido local con despacho o retiro simulado. Sin pago real.</p>
         </aside>
       </div>
     </div>}

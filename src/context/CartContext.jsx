@@ -61,11 +61,14 @@ function CartProvider({ userId, canShop, children }) {
     setAdjustmentNotice('');
   }, [canShop, persist]);
 
+  // Sincroniza React cuando la confirmación ya vació el carrito persistido.
+  const replaceAfterOrder = useCallback(() => { setItems([]); setStorageError(''); setAdjustmentNotice(''); }, []);
+
   const summary = useMemo(() => cartSummary(normalizeCart(items, products), products), [items, products]);
   const value = useMemo(() => ({
     ...summary, canShop, storageError, adjustmentNotice,
-    addItem, changeQuantity, removeItem, clearCart,
-  }), [summary, canShop, storageError, adjustmentNotice, addItem, changeQuantity, removeItem, clearCart]);
+    addItem, changeQuantity, removeItem, clearCart, replaceAfterOrder,
+  }), [summary, canShop, storageError, adjustmentNotice, addItem, changeQuantity, removeItem, clearCart, replaceAfterOrder]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

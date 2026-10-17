@@ -11,6 +11,8 @@ import ProductManagementPage from '../pages/ProductManagementPage.jsx';
 import InventoryPage from '../pages/InventoryPage.jsx';
 import CartPage from '../pages/CartPage.jsx';
 import OrdersPage from '../pages/OrdersPage.jsx';
+import CheckoutPage from '../pages/CheckoutPage.jsx';
+import OrderManagementPage from '../pages/OrderManagementPage.jsx';
 import LocationsPage from '../pages/LocationsPage.jsx';
 import SellerPage from '../pages/SellerPage.jsx';
 import AdminPage from '../pages/AdminPage.jsx';
@@ -38,16 +40,19 @@ export default function AppRoutes() {
           <Route element={<ProtectedRoute allowedRoles={clientRoles} />}>
             <Route path="/carrito" element={<CartPage />} />
             <Route path="/mis-pedidos" element={<OrdersPage />} />
+            <Route path="/confirmar-pedido" element={<CheckoutPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={staffRoles} />}>
             <Route path="/vendedor" element={<SellerPage />} />
             <Route path="/vendedor/inventario" element={<InventoryPage />} />
+            <Route path="/vendedor/pedidos" element={<OrderManagementPage />} />
           </Route>
 
           <Route element={<ProtectedRoute allowedRoles={[ROLES.ADMIN]} />}>
             <Route path="/administracion" element={<AdminPage />} />
             <Route path="/administracion/productos" element={<ProductManagementPage />} />
+            <Route path="/administracion/pedidos" element={<OrderManagementPage />} />
           </Route>
         </Route>
       </Route>

@@ -35,8 +35,10 @@ export function ProductProvider({ children }) {
     return result.error;
   }, [products, persist]);
 
-  const value = useMemo(() => ({ products, storageError, addProduct, editProduct, removeProduct, setStock }),
-    [products, storageError, addProduct, editProduct, removeProduct, setStock]);
+  // commitDemoOrder ya escribió en localStorage: sincronizar solo el estado React.
+  const replaceAfterOrder = useCallback((next) => { setProducts(next); setStorageError(''); }, []);
+  const value = useMemo(() => ({ products, storageError, addProduct, editProduct, removeProduct, setStock, replaceAfterOrder }),
+    [products, storageError, addProduct, editProduct, removeProduct, setStock, replaceAfterOrder]);
   return <ProductContext.Provider value={value}>{children}</ProductContext.Provider>;
 }
 

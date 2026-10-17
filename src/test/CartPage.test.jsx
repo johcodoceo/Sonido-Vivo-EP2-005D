@@ -23,7 +23,7 @@ describe('CartPage', () => {
     expect(screen.getByText(product.name)).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: /resumen del carrito/i })).toBeInTheDocument();
     expect(screen.getByText('2')).toBeInTheDocument();
-    expect(screen.getByRole('button', { name: /confirmar pedido/i })).toBeDisabled();
+    expect(screen.getByRole('link', { name: /continuar a confirmar pedido/i })).toHaveAttribute('href', '/confirmar-pedido');
     fireEvent.click(screen.getByRole('button', { name: /quitar .* del carrito/i }));
     expect(state.removeItem).toHaveBeenCalledWith(product.id);
   });

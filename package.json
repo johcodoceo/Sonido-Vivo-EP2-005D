@@ -1,7 +1,7 @@
 {
-  "name": "sonido-vivo-ep2-etapa-3-carrito",
+  "name": "sonido-vivo-ep2-etapa-4-pedidos",
   "private": true,
-  "version": "0.3.0",
+  "version": "0.4.0",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -11,7 +11,8 @@
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
     "check:catalog": "node scripts/checkCatalog.mjs",
-    "check:cart": "node scripts/checkCart.mjs"
+    "check:cart": "node scripts/checkCart.mjs",
+    "check:orders": "node scripts/checkOrders.mjs"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",

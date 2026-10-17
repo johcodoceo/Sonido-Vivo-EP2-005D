@@ -30,7 +30,7 @@ export default function HomePage() {
                 <span className="showcase-note note-one" aria-hidden="true">♫</span>
                 <span className="showcase-note note-two" aria-hidden="true">♪</span>
                 <div className="showcase-center"><span aria-hidden="true">🎸</span><strong>ENCUENTRA<br/>TU SONIDO</strong></div>
-                <div className="showcase-sticker">ETAPA 3 · CARRITO</div>
+                <div className="showcase-sticker">ETAPA 4 · PEDIDOS</div>
               </div>
             </div>
           </div>

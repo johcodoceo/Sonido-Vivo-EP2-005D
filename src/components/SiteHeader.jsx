@@ -17,7 +17,7 @@ function getNavigation(role) {
     links.push({ to: '/carrito', label: 'Carrito' });
     links.push({ to: '/mis-pedidos', label: 'Mis pedidos' });
   }
-  if ([ROLES.VENDEDOR, ROLES.ADMIN].includes(role)) links.push({ to: '/vendedor', label: 'Vendedor' });
+  if ([ROLES.VENDEDOR, ROLES.ADMIN].includes(role)) { links.push({ to: '/vendedor', label: 'Vendedor' }); links.push({ to: '/vendedor/pedidos', label: 'Gestionar pedidos' }); }
   if (role === ROLES.ADMIN) links.push({ to: '/administracion', label: 'Administración' });
   return links;
 }
