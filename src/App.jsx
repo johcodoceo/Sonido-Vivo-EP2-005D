@@ -1,6 +1,7 @@
 import { BrowserRouter } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext.jsx';
 import { ProductProvider } from './context/ProductContext.jsx';
+import { CartSessionProvider } from './context/CartContext.jsx';
 import AppRoutes from './routes/AppRoutes.jsx';
 
 export default function App() {
@@ -8,7 +9,7 @@ export default function App() {
     <BrowserRouter>
       <AuthProvider>
         <ProductProvider>
-          <AppRoutes />
+          <CartSessionProvider><AppRoutes /></CartSessionProvider>
         </ProductProvider>
       </AuthProvider>
     </BrowserRouter>

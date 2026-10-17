@@ -3,6 +3,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext.jsx';
 import { ROLES, ROLE_LABELS } from '../utils/roles.js';
 import Brand from './Brand.jsx';
+import { useOptionalCart } from '../context/CartContext.jsx';
 
 const commonLinks = [
   { to: '/inicio', label: 'Inicio' },
@@ -25,6 +26,7 @@ export default function SiteHeader() {
   const { user, logout } = useAuth();
   const navigate = useNavigate();
   const [expanded, setExpanded] = useState(false);
+  const cart = useOptionalCart();
 
   function closeMenu() { setExpanded(false); }
   function handleLogout() {
@@ -45,7 +47,7 @@ export default function SiteHeader() {
             {getNavigation(user.role).map(({ to, label }) => (
               <li className="nav-item" key={to}>
                 <NavLink to={to} onClick={closeMenu} className={({ isActive }) => `nav-link top-nav-link px-3 ${isActive ? 'active' : ''}`}>
-                  {label}
+                  {label}{to === '/carrito' && cart?.count > 0 && <span className="badge text-bg-warning ms-2" aria-label={`${cart.count} unidades en el carrito`}>{cart.count}</span>}
                 </NavLink>
               </li>
             ))}

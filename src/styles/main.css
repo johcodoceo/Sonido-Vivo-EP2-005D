@@ -1,4 +1,4 @@
-/* Sonido Vivo · EP2, Etapa 2. Bootstrap 5 + estilos propios. */
+/* Sonido Vivo · EP2, Etapa 3. Bootstrap 5 + estilos propios. */
 :root {
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   color: #172037;
@@ -101,3 +101,14 @@ a { transition: color .2s ease, background-color .2s ease, border-color .2s ease
 .product-art-microfonos { background: linear-gradient(140deg, #51456e, #1d263c); }
 .product-art-pedales-de-efectos { background: linear-gradient(140deg, #5b4777, #222b40); }
 .product-art-estudio-y-grabacion { background: linear-gradient(140deg, #2e627b, #192841); }
+
+/* Etapa 3: carrito */
+.cart-art { width: 105px; height: 105px; border-radius: 16px; display: grid; place-items: center; flex-shrink: 0; color: #fff; font-size: 3.25rem; background: #223c61; }
+.cart-qty-input { width: 75px; text-align: center; }
+.cart-adjust-btn { width: 36px; min-height: 32px; font-weight: 800; }
+.cart-summary { position: sticky; top: 120px; }
+.cart-product-link { color: #172037; text-decoration: none; }
+.cart-product-link:hover { color: #885a0d; text-decoration: underline; }
+.min-width-zero { min-width: 0; }
+@media (max-width: 991.98px) { .cart-summary { position: static; } }
+@media (max-width: 575.98px) { .cart-art { width: 100%; height: 105px; } }
